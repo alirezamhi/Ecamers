@@ -1,0 +1,19 @@
+{
+  "name": "e-commerce-Express-prisma",
+  "version": "1.0.0",
+  "main": "app.js",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon app.js",
+    "migrate":"prisma generate && prisma migrate deploy"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "prisma": "^5.7.0"
+  }
+}
