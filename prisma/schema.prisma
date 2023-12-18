@@ -1,3 +1,25 @@
-enum asd{
-    
+model User {
+    userId Int @id @default(autoincrement())
+    connectionId Int 
+    name String
+}
+
+model Connection{
+    connectionId Int @id @default(autoincrement())
+    phoneId Int 
+    addressId Int
+}
+
+model Phone{
+    phoneId Int @id @default(autoincrement())
+    phoneNumber String 
+    cityCode String @default("021")
+    homePhoneNumber String
+}
+
+model Address{
+    addressId Int @id @default(autoincrement())
+    city String
+    postalCode String 
+    country String @default("iran")
 }
