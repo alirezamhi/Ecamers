@@ -6,7 +6,7 @@ model User {
 
 model Connection{
     connectionId Int @id @default(autoincrement())
-    phoneId Int 
+    phoneId BigInt 
     addressId Int
 }
 
