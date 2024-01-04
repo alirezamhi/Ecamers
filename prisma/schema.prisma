@@ -1,25 +1,34 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
 model User {
-    userId Int @id @default(autoincrement())
-    connectionId Int 
-    name String
+  userId       Int    @id @default(autoincrement())
+  connectionId Int @default(autoincrement())
+  name         String
 }
 
-model Connection{
-    connectionId Int @id @default(autoincrement())
-    phoneId BigInt 
-    addressId Int
+model Connection {
+  connectionId Int    @id @default(autoincrement())
+  phoneId      BigInt 
+  addressId    Int
 }
 
-model Phone{
-    phoneId Int @id @default(autoincrement())
-    phoneNumber String 
-    cityCode String @default("021")
-    homePhoneNumber String
+model Phone {
+  phoneId         Int    @id @default(autoincrement())
+  phoneNumber     String
+  cityCode        String @default("021")
+  homePhoneNumber String
 }
 
-model Address{
-    addressId Int @id @default(autoincrement())
-    city String
-    postalCode String 
-    country String @default("iran")
+model Address {
+  addressId  Int    @id @default(autoincrement())
+  city       String
+  postalCode String
+  country    String @default("iran")
+}
+
+generator client {
+  provider = "prisma-client-js"
 }

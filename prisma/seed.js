@@ -4,8 +4,3 @@ const users = [
         name:"ahmad"
     }
 ]
-
-
-
-
-
