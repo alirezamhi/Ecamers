@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
   res.send("welcome");
 });
 app.use("/api/user", userRouter);
-app.use("/api/task", productRouter);
+app.use("/api/product", productRouter);
 
 app.listen(PORT, () => {
   console.log(`server is running ${PORT}`);

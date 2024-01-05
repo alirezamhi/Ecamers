@@ -12,7 +12,7 @@ model User {
   username     String       @unique
   password     String
   connections  Connection[]
-  carts        Cart[]
+  // carts        Cart[]
   Token        Token[]
 }
 
@@ -41,7 +41,6 @@ model Cart {
   id          Int       @id @default(autoincrement())
   productList Product[]
   userId      Int
-  user        User      @relation(fields: [userId], references: [connectionId])
 }
 
 // Define the Address model
@@ -57,7 +56,6 @@ model Address {
 model Category {
   id       Int       @id @default(autoincrement())
   name     String
-  products Product[]
 }
 
 // Define the Product model
@@ -70,7 +68,6 @@ model Product {
   discount    String
   cart        Cart?    @relation(fields: [cartId], references: [id])
   cartId      Int?
-  category    Category @relation(fields: [categoryId], references: [id])
 }
 
 model Token {

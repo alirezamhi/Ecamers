@@ -15,6 +15,7 @@ class UserService {
     const user = await this.db.user.findUnique({
       where: { username },
     });
+    console.log("user++++++++++++" ,user);
     return this.#exclude(user, "password");
   }
 }

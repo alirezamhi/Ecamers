@@ -7,17 +7,19 @@ const authentication = async (req, res, next) => {
   try {
     const { authorization } = req.headers;
     if (!authorization) {
-      console.log("+++++++++++++", authorization);
-      console.log("token niaze");
-      //   throw new MyError("token dar header lazeme", 401);
+      return res.json({
+        statusCode: 401,
+        status: "faild",
+        error: "token not defined!",
+      });
     }
     const token = authorization.split(" ")[1];
+    console.log("token", token);
     const payload = jwt.verify(token, process.env.SECRET_KEY);
     if (payload) {
       const username = payload.username;
       const user = await userService.getUserByUsername(username);
       req.user = user;
-      next();
     }
     next();
   } catch (error) {

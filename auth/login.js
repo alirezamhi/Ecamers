@@ -30,10 +30,12 @@ exports.login = async (req, res, next) => {
       process.env.ACCESS_TOKEN_TIME,
       username
     );
-  
+
     return res.json({
-      user,
-      token,
+      statusCode: 402,
+      status: "succuss",
+      message: "user signed in !",
+      data: [token, user],
     });
   } catch (e) {
     next(e);
