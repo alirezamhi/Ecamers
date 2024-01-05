@@ -1,34 +1,75 @@
+// Define your datasource
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
+// Define the User model
 model User {
-  userId       Int    @id @default(autoincrement())
-  connectionId Int @default(autoincrement())
+  connectionId Int          @id @default(autoincrement())
   name         String
+  connections  Connection[]
+  carts        Cart[]
 }
 
+// Define the Connection model
 model Connection {
-  connectionId Int    @id @default(autoincrement())
-  phoneId      BigInt 
+  connectionId Int     @id @default(autoincrement())
+  userId       Int
+  phoneId      Int
   addressId    Int
+  user         User    @relation(fields: [userId], references: [connectionId])
+  phone        Phone   @relation(fields: [phoneId], references: [phoneId])
+  address      Address @relation(fields: [addressId], references: [addressId])
 }
 
+// Define the Phone model
 model Phone {
-  phoneId         Int    @id @default(autoincrement())
+  phoneId         Int          @id @default(autoincrement())
   phoneNumber     String
-  cityCode        String @default("021")
+  cityCode        String       @default("021")
   homePhoneNumber String
+  connections     Connection[]
 }
 
+// Define the Cart model
+model Cart {
+  id          Int       @id @default(autoincrement())
+  productList Product[]
+  userId      Int
+  user        User      @relation(fields: [userId], references: [connectionId])
+}
+
+// Define the Address model
 model Address {
-  addressId  Int    @id @default(autoincrement())
-  city       String
-  postalCode String
-  country    String @default("iran")
+  addressId   Int          @id @default(autoincrement())
+  city        String
+  postalCode  String
+  country     String       @default("iran")
+  connections Connection[]
 }
 
+// Define the Category model
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String
+  products Product[]
+}
+
+// Define the Product model
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String
+  categoryId  Int
+  price       String
+  attributeId Int
+  discount    String
+  cart        Cart?    @relation(fields: [cartId], references: [id])
+  cartId      Int?
+  category    Category @relation(fields: [categoryId], references: [id])
+}
+
+// Prisma client generator
 generator client {
   provider = "prisma-client-js"
 }
