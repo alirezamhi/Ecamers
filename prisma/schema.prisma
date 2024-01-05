@@ -5,11 +5,15 @@ datasource db {
 }
 
 // Define the User model
+// Define the User model
 model User {
   connectionId Int          @id @default(autoincrement())
-  name         String
+  name         String?
+  username     String       @unique
+  password     String
   connections  Connection[]
   carts        Cart[]
+  Token        Token[]
 }
 
 // Define the Connection model
@@ -67,6 +71,14 @@ model Product {
   cart        Cart?    @relation(fields: [cartId], references: [id])
   cartId      Int?
   category    Category @relation(fields: [categoryId], references: [id])
+}
+
+model Token {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [username], onDelete: Cascade)
+  userId    String
+  token     String
+  createdAt DateTime @default(now())
 }
 
 // Prisma client generator
